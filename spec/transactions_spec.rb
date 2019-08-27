@@ -15,8 +15,8 @@ describe Transactions do
         date = "27/08/2019"
         credit = 200
         balance = 300
-        transactions.submit(date, credit, nil, balance)
-        expect(transactions.history[0]).to eq ["27/08/2019", 200, nil, 300]
+        transactions.submit(credit, nil, balance)
+        expect(transactions.history[0]).to eq "27/08/2019 ||, 200 ||,  ||, 300 ||"
       end
     end
     describe "show transactions" do
@@ -24,15 +24,18 @@ describe Transactions do
         date = "27/08/2019"
         credit = 200
         balance = 300
-        transactions.submit(date, credit, nil, balance)
-        expect(transactions.history).to eq [["27/08/2019", 200, nil, 300]]
+        transactions.submit(credit, nil, balance)
+        expect(transactions.history).to eq ["27/08/2019 ||, 200 ||,  ||, 300 ||"]
       end
       it "should show transaction history for withdrawals" do
         date = "27/08/2019"
         debit = 200
         balance = 300
-        transactions.submit(date, nil, debit, balance)
-        expect(transactions.history).to eq [["27/08/2019", nil, 200, 300]]
+        transactions.submit(nil, debit, balance)
+        debit = 50
+        balance = 100
+        transactions.submit(nil, debit, balance)
+        expect(transactions.history).to eq ["27/08/2019 ||,  ||, 200 ||, 300 ||", "27/08/2019 ||,  ||, 50 ||, 100 ||"]
       end
     end
   end

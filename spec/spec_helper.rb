@@ -17,11 +17,7 @@ require 'simplecov-console'
 require 'simplecov'
 SimpleCov.start
 SimpleCov.formatter = SimpleCov::Formatter::Console
-# or
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-  SimpleCov::Formatter::HTMLFormatter,
-  SimpleCov::Formatter::Console,
-]
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

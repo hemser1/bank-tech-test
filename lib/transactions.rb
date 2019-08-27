@@ -5,15 +5,15 @@ class Transactions
 
   def initialize
     @history = []
-    @date = Time.now
+    @date = Time.now.strftime("%d/%m/%Y")
   end
 
-  def submit(date, credit = nil, debit = nil, balance)
-    @history << [date, credit, debit, balance]
+  def submit(credit = nil, debit = nil, balance)
+    @history << "#{date} ||, #{credit} ||, #{debit} ||, #{balance} ||"
   end
 
   def statement
-    @history
+    @history.flatten
   end
 
 end
