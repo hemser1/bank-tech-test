@@ -15,4 +15,5 @@ class Transactions
   def statement
     @history
   end
+
 end

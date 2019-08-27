@@ -34,4 +34,11 @@ describe Account do
       end
     end
 
+    context "statement" do
+      describe "#statement" do
+        it 'should show all previous transactions' do
+          expect(account.statement).to eq []
+        end
+      end
+    end
 end
