@@ -13,7 +13,8 @@ class Transactions
   end
 
   def statement
-    @history.flatten
+    @history.unshift("Date       || Credit || Debit || Balance ||")
+    @history.each { |string| puts string }
   end
 
 end
