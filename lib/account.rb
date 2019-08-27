@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'transactions'
 
 class Account
@@ -15,6 +17,7 @@ class Account
 
   def withdraw(debit)
     raise lack_of_funds if debit > @balance
+
     @balance -= debit
     @transaction_history.submit(nil, debit, balance)
   end
@@ -23,10 +26,9 @@ class Account
     @transaction_history.statement
   end
 
-private
+  private
 
   def lack_of_funds
     "You have insufficent funds for this withdrawal your balance is £#{@balance}"
   end
-
 end

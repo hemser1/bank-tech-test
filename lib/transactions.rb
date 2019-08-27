@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'account'
 
 class Transactions
@@ -5,7 +7,7 @@ class Transactions
 
   def initialize
     @history = []
-    @date = Time.now.strftime("%d/%m/%Y")
+    @date = Time.now.strftime('%d/%m/%Y')
   end
 
   def submit(credit = nil, debit = nil, balance)
@@ -13,8 +15,7 @@ class Transactions
   end
 
   def statement
-    @history.unshift("Date       || Credit || Debit || Balance ||")
+    @history.unshift('Date       || Credit || Debit || Balance ||')
     @history.each { |string| puts string }
   end
-
 end
