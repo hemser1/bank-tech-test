@@ -42,9 +42,10 @@ describe Account do
         expect(account.statement).to eq ['Date       || Credit || Debit || Balance ||']
       end
       it 'should show all previous transactions with history' do
+        date = Time.now.strftime('%d/%m/%Y')
         account.deposit(1000)
         account.withdraw(500)
-        expect(account.statement).to eq ['Date       || Credit || Debit || Balance ||', '27/08/2019 ||, 1000 ||,  ||, 1000 ||', '27/08/2019 ||,  ||, 500 ||, 500 ||']
+        expect(account.statement).to eq ["Date       || Credit || Debit || Balance ||", "#{date} ||, 1000 ||,  ||, 1000 ||", "#{date} ||,  ||, 500 ||, 500 ||"]
       end
     end
   end
