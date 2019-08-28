@@ -14,8 +14,4 @@ class Transactions
     @history << "#{date} ||, #{credit} ||, #{debit} ||, #{balance} ||"
   end
 
-  def statement
-    @history.unshift('Date       || Credit || Debit || Balance ||')
-    @history.each { |string| puts string }
-  end
 end

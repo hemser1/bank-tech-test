@@ -31,7 +31,9 @@ describe Account do
       end
       it 'should give message if trying to withdraw too much money' do
         account.deposit(100)
-        expect { account.withdraw(200) }.to raise_error('You have insufficent funds for this withdrawal your balance is £100')
+        expect { account.withdraw(200) }.to raise_error(
+          'Insufficent funds for this withdrawal your balance is £100'
+        )
       end
     end
   end
@@ -39,13 +41,19 @@ describe Account do
   context 'statement' do
     describe '#statement' do
       it 'should show all previous transactions with no history' do
-        expect(account.statement).to eq ['Date       || Credit || Debit || Balance ||']
+        expect(account.statement).to eq [
+          'Date       || Credit || Debit || Balance ||'
+        ]
       end
       it 'should show all previous transactions with history' do
         date = Time.now.strftime('%d/%m/%Y')
         account.deposit(1000)
         account.withdraw(500)
-        expect(account.statement).to eq ["Date       || Credit || Debit || Balance ||", "#{date} ||, 1000 ||,  ||, 1000 ||", "#{date} ||,  ||, 500 ||, 500 ||"]
+        expect(account.statement).to eq [
+          'Date       || Credit || Debit || Balance ||',
+          "#{date} ||, 1000 ||,  ||, 1000 ||",
+          "#{date} ||,  ||, 500 ||, 500 ||"
+        ]
       end
     end
   end

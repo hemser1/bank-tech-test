@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 require_relative 'transactions'
+require_relative 'statement'
 
 class Account
-  attr_reader :balance
+  attr_reader :balance, :transaction_history
 
   def initialize
     @balance = 0
     @transaction_history = Transactions.new
+    @statement = Statement.new
   end
 
   def deposit(credit)
@@ -17,18 +19,18 @@ class Account
 
   def withdraw(debit)
     raise lack_of_funds if debit > @balance
-
     @balance -= debit
     @transaction_history.submit(nil, debit, balance)
   end
 
   def statement
-    @transaction_history.statement
+    @statement = Statement.new
+    @statement.show(transaction_history.history)
   end
 
   private
 
   def lack_of_funds
-    "You have insufficent funds for this withdrawal your balance is £#{@balance}"
+    "Insufficent funds for this withdrawal your balance is £#{@balance}"
   end
 end

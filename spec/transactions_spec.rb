@@ -21,30 +21,38 @@ describe Transactions do
         expect(transactions.history).to eq ["#{date} ||, 200 ||,  ||, 300 ||"]
       end
     end
-
-    describe 'formats transaction printing' do
-      it 'should populate first element of history with column titles' do
-        expect(transactions.statement).to eq ['Date       || Credit || Debit || Balance ||']
-      end
-    end
-
+  end
+  context 'save transactions through submit' do
     describe 'show transactions' do
-      it 'should show transaction history for deposits' do
+      it 'should save transaction history for deposits' do
         date = Time.now.strftime('%d/%m/%Y')
         credit = 200
         balance = 300
-        transactions.submit(credit, nil, balance)
-        expect(transactions.statement).to eq ["Date       || Credit || Debit || Balance ||", "#{date} ||, 200 ||,  ||, 300 ||"]
+        expect(transactions.submit(credit, nil, balance)).to eq [
+          "#{date} ||, 200 ||,  ||, 300 ||"
+        ]
       end
-      it 'should show transaction history for withdrawals' do
+      it 'should save transaction history for withdrawals' do
+        date = Time.now.strftime('%d/%m/%Y')
+        debit = 200
+        balance = 300
+
+        expect(transactions.submit(nil, debit, balance)).to eq [
+          "#{date} ||,  ||, 200 ||, 300 ||"
+        ]
+      end
+      it "should save multiple transactions to history" do
         date = Time.now.strftime('%d/%m/%Y')
         debit = 200
         balance = 300
         transactions.submit(nil, debit, balance)
-        debit = 50
-        balance = 100
-        transactions.submit(nil, debit, balance)
-        expect(transactions.statement).to eq ["Date       || Credit || Debit || Balance ||", "#{date} ||,  ||, 200 ||, 300 ||", "#{date} ||,  ||, 50 ||, 100 ||"]
+        date = Time.now.strftime('%d/%m/%Y')
+        credit = 2000
+        balance = 5000
+        expect(transactions.submit(credit, nil, balance)).to eq [
+          "#{date} ||,  ||, 200 ||, 300 ||",
+          "#{date} ||, 2000 ||,  ||, 5000 ||"
+          ]
       end
     end
   end
